@@ -34,19 +34,19 @@ Based on the specification in `_docs/plan.md`, this backlog outlines the increme
 
 ## Milestone 2: Core Data Models & Administration
 
-- [ ] **Task 2.1: Core Chore Models (`Chore`, `ChoreCycle`, `Bid`)**
+- [x] **Task 2.1: Core Chore Models (`Chore`, `ChoreCycle`, `Bid`)**
   - Define `Chore`: `household` (FK), `title`, `description`, `frequency_days`, `is_active`, `created_at`.
   - Define `ChoreCycle`: `chore` (FK), `cycle_number`, `due_date`, `status` (`BIDDING`, `ASSIGNED`, `COMPLETED`), `assigned_to` (FK User), `completed_at`, `completed_by` (FK User).
   - Define `Bid`: `cycle` (FK ChoreCycle), `user` (FK User), `preference_score` (1–5), `submitted_at`.
   - Add unique constraint: `UniqueConstraint(fields=['cycle', 'user'], name='unique_cycle_user_bid')`.
   - *Acceptance Criteria:* Models migrate cleanly to SQLite with proper relationships and index constraints.
 
-- [ ] **Task 2.2: Model Properties & Helper Methods**
+- [x] **Task 2.2: Model Properties & Helper Methods**
   - Add `@property def is_overdue(self)` on `ChoreCycle`: returns `True` if `status == 'ASSIGNED'` and `due_date < timezone.now()`.
   - Add helper method on `Chore` to spawn an initial or recurring `ChoreCycle`.
   - *Acceptance Criteria:* Unit tests/checks confirm `is_overdue` behaves accurately with past/future dates.
 
-- [ ] **Task 2.3: Django Admin Registration**
+- [x] **Task 2.3: Django Admin Registration**
   - Register `Household`, `UserProfile`, `Chore`, `ChoreCycle`, and `Bid` in `chores/admin.py`.
   - Configure list displays, search fields, and household filters for administrative oversight.
   - *Acceptance Criteria:* All models can be viewed and managed via the `/admin/` portal.
