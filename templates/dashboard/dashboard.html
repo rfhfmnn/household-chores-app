@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard — Household Chores{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <h1 style="font-size: 1.75rem; font-weight: 800;">Household Dashboard</h1>
+    <p style="color: var(--text-muted);">
+      Household: <strong>{{ user.profile.household.name }}</strong> &bull; {{ household_members_count }} member{{ household_members_count|pluralize }}
+    </p>
+  </div>
+  <div>
+    <a href="{% url 'household_select' %}" class="btn btn-secondary btn-sm">Switch Household</a>
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="card-title">Welcome to your Household Chores Hub!</h2>
+  <p class="card-subtitle">
+    Milestone 1 is complete! Authentication and household membership are fully set up.
+  </p>
+  <div style="background: var(--bg); padding: 1rem; border-radius: var(--radius); border: 1px solid var(--border);">
+    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Current Household Members:</h3>
+    <ul style="padding-left: 1.25rem;">
+      {% for member in household_members %}
+        <li>
+          {{ member.user.username }}
+          {% if member.user == user %}(<strong>You</strong>){% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

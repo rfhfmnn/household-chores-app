@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Household Chores{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header class="navbar">
+    <a href="{% url 'dashboard' %}" class="nav-brand">
+      <span>🧹</span> Household Chores
+    </a>
+    <nav class="nav-links">
+      {% if user.is_authenticated %}
+        {% if user.profile.household %}
+          <span class="household-badge">🏠 {{ user.profile.household.name }}</span>
+        {% else %}
+          <a href="{% url 'household_select' %}" class="household-badge" style="text-decoration:none;">⚠️ Select Household</a>
+        {% endif %}
+        <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+        <div class="nav-user">
+          <span>👤 <strong>{{ user.username }}</strong></span>
+          <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-link">Logout</button>
+          </form>
+        </div>
+      {% else %}
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-sm">Register</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>Shared Household Chore Manager &copy; 2026 &bull; Fair-share cadence task allocation</p>
+  </footer>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
