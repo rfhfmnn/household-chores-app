@@ -58,6 +58,8 @@ household-chores-app/
 │   └── plan.md               # Detailed architectural specification
 │
 ├── backlog.md                # Development milestone tasks and checklist
+├── run.bat                   # 🚀 Windows launcher (double-click to start server)
+├── run.sh                    # 🚀 Linux/macOS launcher script
 ├── manage.py                 # Django management CLI
 └── db.sqlite3                # SQLite database (auto-created)
 ```
@@ -94,6 +96,21 @@ uv run python manage.py createsuperuser
 ```
 
 ### 5. Start the Development Server
+
+#### Option A: Using the Launcher (Recommended)
+You can start the server with the included launcher script, which automatically detects whether to run with `uv`, `py`, or `python`:
+
+- **Windows:** Double-click on `run.bat` or run from terminal:
+  ```cmd
+  run.bat
+  ```
+- **Linux / macOS / Git Bash:**
+  ```bash
+  chmod +x run.sh
+  ./run.sh
+  ```
+
+#### Option B: Manual Command
 ```bash
 uv run python manage.py runserver
 # or on Windows:
